@@ -1,22 +1,34 @@
 package com.itlize.jooleproject.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class User {
     @Id
     private String username;
 
+    @Column(nullable = false)
     private String password;
+
     private String userType;
+
+    @CreatedBy
     private LocalDateTime timeCreated;
+
+    @UpdateTimestamp
     private LocalDateTime lastModified;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(targetEntity = Project.class, mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Project> projects;
 
     public User() {
