@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -15,18 +17,31 @@ import java.util.Set;
 public class Product {
     @Id
     @GeneratedValue
+    @Column(name = "product_id")
     private Long productId;
 
+
+    @Column(name = "type")
     private String type;
+
+    @Column(name = "manufacturer")
     private String manufacturer;
+
+    @Column(name = "model")
     private String model;
+
+    @Column(name = "model_year")
     private Integer modelYear;
+
+    @Column(name = "air_flow")
     private Integer airFlow;
 
-    @CreatedBy
+    @CreatedDate
+    @Column(name = "time_created")
     private LocalDateTime timeCreated;
 
-    @UpdateTimestamp
+    @LastModifiedDate
+    @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
     @OneToMany(targetEntity = ProjectResource.class, mappedBy = "product", cascade =

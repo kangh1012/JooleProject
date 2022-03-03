@@ -2,6 +2,8 @@ package com.itlize.jooleproject.entity;
 
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 public class ProjectResource {
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne(cascade = CascadeType.DETACH)
@@ -22,12 +25,15 @@ public class ProjectResource {
     @JoinColumn(name = "product_id")
     Product product;
 
+    @Column(name = "price_quote")
     private Double priceQuote;
 
-    @CreatedBy
+    @CreatedDate
+    @Column(name = "time_created")
     private LocalDateTime timeCreated;
 
-    @UpdateTimestamp
+    @LastModifiedDate
+    @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
     public ProjectResource() {
