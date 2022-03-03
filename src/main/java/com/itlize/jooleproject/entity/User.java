@@ -3,6 +3,8 @@ package com.itlize.jooleproject.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
@@ -11,20 +13,25 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
+@Table(name = "users")
 @EntityListeners(AuditingEntityListener.class)
 public class User {
     @Id
+    @Column(name = "user_name")
     private String username;
 
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "user_type")
     private String userType;
 
-    @CreatedBy
+    @CreatedDate
+    @Column(name = "time_created")
     private LocalDateTime timeCreated;
 
-    @UpdateTimestamp
+    @LastModifiedDate
+    @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
     @OneToMany(targetEntity = Project.class, mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
