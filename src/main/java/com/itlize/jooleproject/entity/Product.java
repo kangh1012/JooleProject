@@ -21,7 +21,7 @@ public class Product {
     private Long productId;
 
 
-    @Column(name = "type")
+    @Column(name = "product_type")
     private String type;
 
     @Column(name = "manufacturer")

@@ -1,7 +1,5 @@
 package com.itlize.jooleproject.entity;
 
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -10,11 +8,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "project_resource")
 @EntityListeners(AuditingEntityListener.class)
 public class ProjectResource {
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "pr_id")
     private Long id;
 
     @ManyToOne(cascade = CascadeType.DETACH)
