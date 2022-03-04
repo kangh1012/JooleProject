@@ -28,27 +28,27 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public List<Product> findByType(String type) {
-        return repository.findByType(type);
+        return repository.findByType(type).orElse(null);
     }
 
     @Override
     public List<Product> findByManufacturer(String manufacturer) {
-        return repository.findByManufacturer(manufacturer);
+        return repository.findByManufacturer(manufacturer).orElse(null);
     }
 
     @Override
     public List<Product> findByModel(String model) {
-        return repository.findByModel(model);
+        return repository.findByModel(model).orElse(null);
     }
 
     @Override
     public List<Product> findByModelYearBetween(Integer modelYear, Integer modelYear2) {
-        return repository.findByModelYearBetween(modelYear, modelYear2);
+        return repository.findByModelYearBetween(modelYear, modelYear2).orElse(null);
     }
 
     @Override
     public List<Product> findByAirFlowBetween(Integer airFlow, Integer airFlow2) {
-        return repository.findByAirFlowBetween(airFlow, airFlow2);
+        return repository.findByAirFlowBetween(airFlow, airFlow2).orElse(null);
     }
 
     @Override

@@ -30,12 +30,12 @@ public class ProjectResourceServiceImp implements ProjectResourceService {
 
     @Override
     public List<ProjectResource> findByProject(Project project) {
-        return repository.findByProject(project);
+        return repository.findByProject(project).orElse(null);
     }
 
     @Override
     public List<ProjectResource> findByProduct(Product product) {
-        return repository.findByProduct(product);
+        return repository.findByProduct(product).orElse(null);
     }
 
     @Override

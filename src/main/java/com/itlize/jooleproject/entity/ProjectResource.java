@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class ProjectResource {
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "pr_id")
     private Long id;
 
     @ManyToOne(cascade = CascadeType.DETACH)

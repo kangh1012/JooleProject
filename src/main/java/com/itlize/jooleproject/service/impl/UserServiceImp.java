@@ -23,7 +23,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public List<User> findByUserType(String userType) {
-        return repository.findByUserType(userType);
+        return repository.findByUserType(userType).orElse(null);
     }
 
     @Override

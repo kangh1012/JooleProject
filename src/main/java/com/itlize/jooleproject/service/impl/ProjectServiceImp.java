@@ -29,22 +29,22 @@ public class ProjectServiceImp implements ProjectService {
 
     @Override
     public List<Project> findByOwner(User owner) {
-        return repository.findByOwner(owner);
+        return repository.findByOwner(owner).orElse(null);
     }
 
     @Override
     public List<Project> findByProjectAddress(String projectAddress) {
-        return repository.findByProjectAddress(projectAddress);
+        return repository.findByProjectAddress(projectAddress).orElse(null);
     }
 
     @Override
     public List<Project> findByProjectType(String projectType) {
-        return repository.findByProjectType(projectType);
+        return repository.findByProjectType(projectType).orElse(null);
     }
 
     @Override
     public List<Project> findByProjectSize(String projectSize) {
-        return repository.findByProjectSize(projectSize);
+        return repository.findByProjectSize(projectSize).orElse(null);
     }
 
     @Override

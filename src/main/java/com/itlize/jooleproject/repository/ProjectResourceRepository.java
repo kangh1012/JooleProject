@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface ProjectResourceRepository extends JpaRepository<ProjectResource, Long> {
-    List<ProjectResource> findByProject(Project project);
+    Optional<List<ProjectResource>> findByProject(Project project);
 
-    List<ProjectResource> findByProduct(Product product);
+    Optional<List<ProjectResource>> findByProduct(Product product);
 }
