@@ -6,9 +6,11 @@ import com.itlize.jooleproject.entity.ProjectResource;
 import com.itlize.jooleproject.repository.ProjectResourceRepository;
 import com.itlize.jooleproject.service.ProjectResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProjectResourceServiceImp implements ProjectResourceService {
     @Autowired
     private ProjectResourceRepository repository;

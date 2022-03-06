@@ -4,9 +4,11 @@ import com.itlize.jooleproject.entity.Product;
 import com.itlize.jooleproject.repository.ProductRepository;
 import com.itlize.jooleproject.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProductServiceImp implements ProductService {
     @Autowired
     private ProductRepository repository;

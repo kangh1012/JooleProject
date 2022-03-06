@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
+@Table(name = "product")
 @EntityListeners(AuditingEntityListener.class)
 public class Product {
     @Id
