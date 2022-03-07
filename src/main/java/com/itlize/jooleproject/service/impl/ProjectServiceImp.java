@@ -5,9 +5,11 @@ import com.itlize.jooleproject.entity.User;
 import com.itlize.jooleproject.repository.ProjectRepository;
 import com.itlize.jooleproject.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProjectServiceImp implements ProjectService {
     @Autowired
     private ProjectRepository repository;
