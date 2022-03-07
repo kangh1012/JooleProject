@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("register")
+    @RequestMapping("/register")
     public JsonResult<Void> register(User user){
         LocalDateTime date = LocalDateTime.now();
         user.setTimeCreated(date);
@@ -37,7 +37,6 @@ public class UserController {
 
         return result;
     }
-
 
 
 }
