@@ -13,5 +13,7 @@ import java.util.Optional;
 public interface ProjectResourceRepository extends JpaRepository<ProjectResource, Long> {
     Optional<List<ProjectResource>> findByProject(Project project);
 
+    Optional<ProjectResource> findByProductAndProject(Product product,Project project);
+
     Optional<List<ProjectResource>> findByProduct(Product product);
 }
