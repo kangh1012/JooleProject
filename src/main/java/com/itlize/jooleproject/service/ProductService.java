@@ -1,9 +1,11 @@
 package com.itlize.jooleproject.service;
 
 import com.itlize.jooleproject.entity.Product;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface ProductService {
     Product save(Product product);
 
