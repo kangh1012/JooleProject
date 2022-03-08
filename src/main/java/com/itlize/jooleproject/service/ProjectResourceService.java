@@ -11,6 +11,8 @@ public interface ProjectResourceService {
 
     ProjectResource findById(Long id);
 
+    ProjectResource findByProductAndProject(Product product,Project project);
+
     List<ProjectResource> findAll();
 
     List<ProjectResource> findByProject(Project project);

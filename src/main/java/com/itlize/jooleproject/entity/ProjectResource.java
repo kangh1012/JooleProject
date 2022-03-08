@@ -85,4 +85,16 @@ public class ProjectResource {
     public void setLastModified(LocalDateTime lastModified) {
         this.lastModified = lastModified;
     }
+
+    @Override
+    public String toString() {
+        return "ProjectResource{" +
+                "id=" + id +
+                ", project=" + project +
+                ", product=" + product +
+                ", priceQuote=" + priceQuote +
+                ", timeCreated=" + timeCreated +
+                ", lastModified=" + lastModified +
+                '}';
+    }
 }

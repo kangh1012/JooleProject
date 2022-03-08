@@ -21,6 +21,11 @@ public class ProjectResourceServiceImp implements ProjectResourceService {
     }
 
     @Override
+    public ProjectResource findByProductAndProject(Product product, Project project) {
+        return repository.findByProductAndProject(product, project).orElse(null);
+    }
+
+    @Override
     public ProjectResource findById(Long id) {
         return repository.findById(id).orElse(null);
     }

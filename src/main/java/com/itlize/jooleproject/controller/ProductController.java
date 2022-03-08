@@ -6,8 +6,8 @@ import com.itlize.jooleproject.entity.ProjectResource;
 import com.itlize.jooleproject.service.ProductService;
 import com.itlize.jooleproject.service.ProjectResourceService;
 import com.itlize.jooleproject.service.ProjectService;
-import com.itlize.jooleproject.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,23 +27,17 @@ public class ProductController {
     private ProjectResourceService projectResourceService;
 
     @RequestMapping("/createProduct")
-    public JsonResult<Void> add(Product product){
+    public ResponseEntity<?> createProduct(Product product){
 
-        JsonResult<Void> result = new JsonResult<>();
-        try{
-            productService.save(product);
-            result.setState(200);
-            result.setMessage("Successfully added product.");
-        }catch(Exception e){
-            result.setState(4000);
-            result.setMessage("Error happens when trying to add product.");
-        }
-        return result;
+        productService.save(product);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
     @RequestMapping("/addProductToProject")
     public ResponseEntity<?> addProductToProject(Product product, Project project){
-         projectResourceService.findById()
+        ProjectResource pr = projectResourceService.findByProductAndProject(product, project);
+
+        return new ResponseEntity<>(pr, HttpStatus.CREATED);
     }
 
 

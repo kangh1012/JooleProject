@@ -20,15 +20,18 @@ public class ProjectController {
     private ProjectService projectService;
 
     @RequestMapping("/addProject")
-    public ResponseEntity<?> add(Project project, User user){
+    public ResponseEntity<?> addProject(Project project, User user){
 
             project.setOwner(user);
             projectService.save(project);
             return new ResponseEntity<>(project, HttpStatus.CREATED);
 
+    }
 
-
-
+    @RequestMapping("/fetchProjectById")
+    public ResponseEntity<?> fetchProjectById(Long id){
+        Project project = projectService.findById(id);
+        return new ResponseEntity<>(project, HttpStatus.FOUND);
     }
 
 }

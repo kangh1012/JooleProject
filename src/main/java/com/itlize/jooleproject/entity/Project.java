@@ -123,4 +123,19 @@ public class Project {
     public void setResources(Set<ProjectResource> resources) {
         this.resources = resources;
     }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "projectId=" + projectId +
+                ", projectName='" + projectName + '\'' +
+                ", projectAddress='" + projectAddress + '\'' +
+                ", projectType='" + projectType + '\'' +
+                ", projectSize='" + projectSize + '\'' +
+                ", timeCreated=" + timeCreated +
+                ", lastModified=" + lastModified +
+                ", owner=" + owner +
+                ", resources=" + resources +
+                '}';
+    }
 }

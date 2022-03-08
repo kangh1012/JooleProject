@@ -80,4 +80,16 @@ public class User {
     public void setLastModified(LocalDateTime lastModified) {
         this.lastModified = lastModified;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", userType='" + userType + '\'' +
+                ", timeCreated=" + timeCreated +
+                ", lastModified=" + lastModified +
+                ", projects=" + projects +
+                '}';
+    }
 }

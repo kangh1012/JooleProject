@@ -124,4 +124,19 @@ public class Product {
     public void setAirFlow(Integer airFlow) {
         this.airFlow = airFlow;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", type='" + type + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", model='" + model + '\'' +
+                ", modelYear=" + modelYear +
+                ", airFlow=" + airFlow +
+                ", timeCreated=" + timeCreated +
+                ", lastModified=" + lastModified +
+                ", resources=" + resources +
+                '}';
+    }
 }
