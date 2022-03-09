@@ -1,8 +1,6 @@
 package com.itlize.jooleproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -44,10 +42,10 @@ public class Project {
     @JoinColumn(name = "user_name")
     private User owner;
 
-    @OneToMany(targetEntity = ProjectResource.class, mappedBy = "project",
+    @OneToMany(targetEntity = ProductToProject.class, mappedBy = "project",
             cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<ProjectResource> resources;
+    private Set<ProductToProject> resources;
 
     public Project() {
     }
@@ -116,11 +114,11 @@ public class Project {
         this.lastModified = lastModified;
     }
 
-    public Set<ProjectResource> getResources() {
+    public Set<ProductToProject> getResources() {
         return resources;
     }
 
-    public void setResources(Set<ProjectResource> resources) {
+    public void setResources(Set<ProductToProject> resources) {
         this.resources = resources;
     }
 

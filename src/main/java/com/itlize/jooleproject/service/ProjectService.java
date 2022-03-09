@@ -10,6 +10,8 @@ import java.util.List;
 public interface ProjectService {
     Project save(Project project);
 
+    Project saveByUsername(User user);
+
     Project findById(Long id);
 
     List<Project> findAll();
@@ -23,4 +25,6 @@ public interface ProjectService {
     List<Project> findByProjectSize(String projectSize);
 
     void delete(Project project);
+
+
 }

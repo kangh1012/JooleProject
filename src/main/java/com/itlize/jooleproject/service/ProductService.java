@@ -9,6 +9,8 @@ import java.util.List;
 public interface ProductService {
     Product save(Product product);
 
+    Product createNewProduct();
+
     Product findById(Long id);
 
     List<Product> findAll();
@@ -24,4 +26,5 @@ public interface ProductService {
     List<Product> findByAirFlowBetween(Integer airFlow, Integer airFlow2);
 
     void delete(Product product);
+
 }

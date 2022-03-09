@@ -3,7 +3,9 @@ package com.itlize.jooleproject.service.impl;
 import com.itlize.jooleproject.entity.Project;
 import com.itlize.jooleproject.entity.User;
 import com.itlize.jooleproject.repository.ProjectRepository;
+import com.itlize.jooleproject.repository.UserRepository;
 import com.itlize.jooleproject.service.ProjectService;
+import com.itlize.jooleproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,19 @@ public class ProjectServiceImp implements ProjectService {
     @Autowired
     private ProjectRepository repository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public Project save(Project project) {
+        return repository.save(project);
+    }
+
+    @Override
+    public Project saveByUsername(User user){
+        Project project = new Project();
+        project.setOwner(user);
+
         return repository.save(project);
     }
 
