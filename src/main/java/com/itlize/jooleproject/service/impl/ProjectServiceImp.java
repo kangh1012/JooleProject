@@ -25,9 +25,22 @@ public class ProjectServiceImp implements ProjectService {
     }
 
     @Override
-    public Project saveByUsername(User user){
+    public Project createProjectByUsernameAndProjectName(String username,String projectName) throws Exception{
+
+
+        User testuser = userRepository.findById(username).orElse(null);
+        if(testuser  == null){
+            throw new Exception("user not found.");
+        }
+        List<Project> projects = repository.findByOwner(testuser).orElse(null);
+        for (Project p : projects){
+            if (p.getProjectName() == projectName){
+                throw new Exception("This project is existing in current user.");
+            }
+        }
         Project project = new Project();
-        project.setOwner(user);
+        project.setProjectName(projectName);
+        project.setOwner(testuser);
 
         return repository.save(project);
     }

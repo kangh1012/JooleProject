@@ -52,6 +52,7 @@ public class ProductController {
         return new ResponseEntity<>(findProduct, HttpStatus.OK);
     }
 
+    //give default to false so it's not asking for them
     @RequestMapping("/updateProduct")
     public ResponseEntity<?> updateProduct(@RequestParam(name = "productId") Long id,
                                            @RequestParam(name = "productType") String type,

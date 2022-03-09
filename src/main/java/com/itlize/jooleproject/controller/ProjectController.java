@@ -22,13 +22,14 @@ public class ProjectController {
     private UserService userService;
 
     @RequestMapping("/createProject")
-    public ResponseEntity<?> createProject(@RequestParam(name = "username") String username){
+    public ResponseEntity<?> createProject(@RequestParam(name = "username") String username,
+                                           @RequestParam(name = "projectName") String projectName) throws Exception {
         User findUser = userService.findByUsername(username);
         if (findUser == null){
             return new ResponseEntity<>("{\"message: \" System do not have this user yet. }", HttpStatus.BAD_REQUEST);
         }
 
-        Project project = projectService.saveByUsername(findUser);
+        Project project = projectService.createProjectByUsernameAndProjectName(username,projectName);
         return new ResponseEntity<>(project, HttpStatus.CREATED);
 
     }
@@ -48,10 +49,10 @@ public class ProjectController {
 
     @RequestMapping("/updateProject")
     public ResponseEntity<?> updateProject(@RequestParam(name = "projectId") Long id,
-                                           @RequestParam(name = "projectName") String name,
-                                           @RequestParam(name = "address") String address,
-                                           @RequestParam(name = "size")String size,
-                                           @RequestParam(name = "type") String type){
+                                           @RequestParam(name = "projectName", required = false) String name,
+                                           @RequestParam(name = "address", required = false) String address,
+                                           @RequestParam(name = "size", required = false)String size,
+                                           @RequestParam(name = "type", required = false) String type){
         Project project = projectService.findById(id);
         project.setProjectName(name);
         project.setProjectAddress(address);
