@@ -30,7 +30,7 @@ public class ProjectServiceTest {
         original.setProjectSize("Medium");
         original.setProjectAddress("Las Vegas, NV");
         User owner = userService.findByUsername("test1");
-      original.setOwner(owner);
+        original.setOwner(owner);
         Set<Project> projects = new HashSet<>();
         projects.add(original);
         owner.setProjects(projects);
@@ -42,11 +42,10 @@ public class ProjectServiceTest {
     }
 
     @Test
-    public void saveByUsernameTest() throws Exception {
-
-        Project project = projectService.createProjectByUsernameAndProjectName("test1","project2");
-        System.out.println(project);
-
+    public void createProjectByUserAndProjectNameTest() throws Exception{
+        User owner = userService.findByUsername("test1");
+        Project project = projectService.createProjectByUserAndProjectName(owner,"project2");
+        Assertions.assertThat(project).isNotNull();
     }
 
     @Test

@@ -29,7 +29,7 @@ public class ProjectController {
             return new ResponseEntity<>("{\"message: \" System do not have this user yet. }", HttpStatus.BAD_REQUEST);
         }
 
-        Project project = projectService.createProjectByUsernameAndProjectName(username,projectName);
+        Project project = projectService.createProjectByUserAndProjectName(findUser,projectName);
         return new ResponseEntity<>(project, HttpStatus.CREATED);
 
     }

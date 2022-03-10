@@ -10,7 +10,7 @@ import java.util.List;
 public interface ProjectService {
     Project save(Project project);
 
-    Project createProjectByUsernameAndProjectName (String username, String projectName) throws Exception;
+    Project createProjectByUserAndProjectName (User user, String projectName) throws Exception;
 
     Project findById(Long id);
 

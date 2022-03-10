@@ -38,8 +38,8 @@ public class Project {
     @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
-    @ManyToOne(targetEntity = User.class,cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-   // @JoinColumn(name = "user_name")
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "user_name")
     private User owner;
 
     @OneToMany(targetEntity = ProductToProject.class, mappedBy = "project",

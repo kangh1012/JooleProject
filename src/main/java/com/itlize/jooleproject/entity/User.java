@@ -1,12 +1,9 @@
 package com.itlize.jooleproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -34,7 +31,7 @@ public class User {
     @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
-    @OneToMany(targetEntity = Project.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Project.class, mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Project> projects;
     public User() {
