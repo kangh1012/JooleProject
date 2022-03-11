@@ -31,10 +31,22 @@ public class User {
     @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
+    @Column(name = "role")
+    Role role;
+
     @OneToMany(targetEntity = Project.class, mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Project> projects;
+
     public User() {
+        role = Role.EndUser;
+    }
+    public User(Boolean isAdmin){
+        if (isAdmin){
+            role = Role.Admin;
+        }else{
+            role = Role.EndUser;
+        }
     }
 
     public String getUsername() {
@@ -96,4 +108,5 @@ public class User {
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
     }
+
 }

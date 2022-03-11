@@ -16,9 +16,6 @@ public class ProjectServiceImp implements ProjectService {
     @Autowired
     private ProjectRepository repository;
 
-    @Autowired
-    private UserRepository userRepository;
-
     @Override
     public Project save(Project project) {
         return repository.save(project);
