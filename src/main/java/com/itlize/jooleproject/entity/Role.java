@@ -1,5 +1,6 @@
 package com.itlize.jooleproject.entity;
 
-enum Role {
+public enum Role {
     Admin, EndUser;
+
 }

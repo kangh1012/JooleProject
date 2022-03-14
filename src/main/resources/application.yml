@@ -9,6 +9,8 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/JooleProjectDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: P1234567q
+  main:
+    allow-circular-references: true
   jpa:
     hibernate:
       ddl-auto: update

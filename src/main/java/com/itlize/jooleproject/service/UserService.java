@@ -9,6 +9,8 @@ import java.util.List;
 public interface UserService {
     User save(User user);
 
+    User createNewUser(String username, String password) throws Exception;
+
     User findByUsername(String username);
 
     List<User> findByUserType(String userType);

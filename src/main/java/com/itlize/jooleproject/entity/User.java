@@ -15,7 +15,7 @@ import java.util.Set;
 public class User {
     @Id
     @Column(name = "user_name")
-    private String userName;
+    private String username;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -31,8 +31,9 @@ public class User {
     @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    Role role;
+    private Role role;
 
     @OneToMany(targetEntity = Project.class, mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -50,11 +51,11 @@ public class User {
     }
 
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     public void setUsername(String username) {
-        this.userName = username;
+        this.username = username;
     }
 
     public String getPassword() {
@@ -92,7 +93,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "username='" + userName + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", userType='" + userType + '\'' +
                 ", timeCreated=" + timeCreated +
@@ -109,4 +110,11 @@ public class User {
         this.projects = projects;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }

@@ -1,6 +1,6 @@
 package com.itlize.jooleproject.service;
 
-
+import com.itlize.jooleproject.entity.User;
 import com.itlize.jooleproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,8 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -21,8 +19,6 @@ public class MyUserDetailsService implements UserDetailsService {
 
             @Autowired
             UserRepository userRepository;
-
-
 
     /*** During login verification, obtain all the user's authority information
      * through username* And return UserDetails to spring's global cache SecurityContextHolder
