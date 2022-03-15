@@ -20,9 +20,6 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "user_type")
-    private String userType;
-
     @CreatedDate
     @Column(name = "time_created")
     private LocalDateTime timeCreated;
@@ -66,14 +63,6 @@ public class User {
         this.password = password;
     }
 
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
     public LocalDateTime getTimeCreated() {
         return timeCreated;
     }
@@ -95,7 +84,7 @@ public class User {
         return "User{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", userType='" + userType + '\'' +
+                ", role='" + role + '\'' +
                 ", timeCreated=" + timeCreated +
                 ", lastModified=" + lastModified +
                 ", projects=" + projects +

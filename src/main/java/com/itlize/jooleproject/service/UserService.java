@@ -13,8 +13,6 @@ public interface UserService {
 
     User findByUsername(String username);
 
-    List<User> findByUserType(String userType);
-
     List<User> findAll();
 
     void delete(User user);
