@@ -9,9 +9,9 @@ import java.util.List;
 public interface UserService {
     User save(User user);
 
-    User findByUsername(String username);
+    User createNewUser(String username, String password) throws Exception;
 
-    List<User> findByUserType(String userType);
+    User findByUsername(String username);
 
     List<User> findAll();
 

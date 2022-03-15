@@ -1,4 +1,4 @@
-package com.itlize.jooleproject;
+package com.itlize.jooleproject.service;
 
 import com.itlize.jooleproject.entity.Project;
 import com.itlize.jooleproject.entity.User;
@@ -39,6 +39,13 @@ public class ProjectServiceTest {
 
         Assertions.assertThat(saved).isNotNull();
         Assertions.assertThat(saved.getProjectName()).isEqualTo("Sample1");
+    }
+
+    @Test
+    public void createProjectByUserAndProjectNameTest() throws Exception{
+        User owner = userService.findByUsername("test1");
+        Project project = projectService.createProjectByUserAndProjectName(owner,"project2");
+        Assertions.assertThat(project).isNotNull();
     }
 
     @Test

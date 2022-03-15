@@ -1,6 +1,7 @@
 package com.itlize.jooleproject.service.impl;
 
 import com.itlize.jooleproject.entity.Product;
+import com.itlize.jooleproject.entity.User;
 import com.itlize.jooleproject.repository.ProductRepository;
 import com.itlize.jooleproject.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,12 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public Product save(Product product) {
+        return repository.save(product);
+    }
+
+    @Override
+    public Product createNewProduct(){
+        Product product = new Product();
         return repository.save(product);
     }
 

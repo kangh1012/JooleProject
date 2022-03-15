@@ -3,7 +3,9 @@ package com.itlize.jooleproject.service.impl;
 import com.itlize.jooleproject.entity.Project;
 import com.itlize.jooleproject.entity.User;
 import com.itlize.jooleproject.repository.ProjectRepository;
+import com.itlize.jooleproject.repository.UserRepository;
 import com.itlize.jooleproject.service.ProjectService;
+import com.itlize.jooleproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,22 @@ public class ProjectServiceImp implements ProjectService {
 
     @Override
     public Project save(Project project) {
+        return repository.save(project);
+    }
+
+    @Override
+    public Project createProjectByUserAndProjectName(User user ,String projectName) throws Exception{
+
+        List<Project> projects = repository.findByOwner(user).orElse(null);
+        for (Project p : projects){
+            if (p.getProjectName().equals(projectName) ){
+                throw new Exception("This project is existing in current user.");
+            }
+        }
+        Project project = new Project();
+        project.setProjectName(projectName);
+        project.setOwner(user);
+
         return repository.save(project);
     }
 

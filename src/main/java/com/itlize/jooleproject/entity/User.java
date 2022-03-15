@@ -20,9 +20,6 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "user_type")
-    private String userType;
-
     @CreatedDate
     @Column(name = "time_created")
     private LocalDateTime timeCreated;
@@ -31,11 +28,23 @@ public class User {
     @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role;
+
     @OneToMany(targetEntity = Project.class, mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Project> projects;
 
     public User() {
+        role = Role.EndUser;
+    }
+    public User(Boolean isAdmin){
+        if (isAdmin){
+            role = Role.Admin;
+        }else{
+            role = Role.EndUser;
+        }
     }
 
     public String getUsername() {
@@ -54,14 +63,6 @@ public class User {
         this.password = password;
     }
 
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
     public LocalDateTime getTimeCreated() {
         return timeCreated;
     }
@@ -78,11 +79,31 @@ public class User {
         this.lastModified = lastModified;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", timeCreated=" + timeCreated +
+                ", lastModified=" + lastModified +
+                ", projects=" + projects +
+                '}';
+    }
+
     public Set<Project> getProjects() {
         return projects;
     }
 
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "project_resource")
 @EntityListeners(AuditingEntityListener.class)
-public class ProjectResource {
+public class ProductToProject {
     @Id
     @GeneratedValue
     @Column(name = "pr_id")
@@ -35,8 +35,9 @@ public class ProjectResource {
     @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
-    public ProjectResource() {
+    public ProductToProject() {
     }
+
 
     public Long getId() {
         return id;
@@ -84,5 +85,17 @@ public class ProjectResource {
 
     public void setLastModified(LocalDateTime lastModified) {
         this.lastModified = lastModified;
+    }
+
+    @Override
+    public String toString() {
+        return "ProjectResource{" +
+                "id=" + id +
+                ", project=" + project +
+                ", product=" + product +
+                ", priceQuote=" + priceQuote +
+                ", timeCreated=" + timeCreated +
+                ", lastModified=" + lastModified +
+                '}';
     }
 }
