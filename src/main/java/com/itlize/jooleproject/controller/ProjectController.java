@@ -8,6 +8,7 @@ import com.itlize.jooleproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,7 @@ public class ProjectController {
     private UserService userService;
 
     @RequestMapping("/createProject")
+    //@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<?> createProject(@RequestParam(name = "username") String username,
                                            @RequestParam(name = "projectName") String projectName) throws Exception {
         User findUser = userService.findByUsername(username);

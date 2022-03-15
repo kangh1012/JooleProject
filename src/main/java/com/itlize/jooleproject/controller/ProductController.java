@@ -12,6 +12,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +38,7 @@ public class ProductController {
      * **/
 
     @RequestMapping("/createProduct")
+    //@PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> createProduct(){
         Product product = productService.createNewProduct();
         return new ResponseEntity<>(product, HttpStatus.CREATED);

@@ -72,9 +72,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		//Cross-origin-resource-sharing
 		.cors().and()
 				.authorizeRequests()
-				.antMatchers("/user/authenticate").permitAll()
-				.antMatchers("/user/createUser").permitAll()
-				.antMatchers("/users/admin/**").hasRole("ADMIN")
+				.antMatchers("/user/login").permitAll()
+				.antMatchers("/user/register").permitAll()
+				.antMatchers("/user/admin/**").hasRole("ADMIN")
 				.anyRequest().fullyAuthenticated();// others need to be accessed after authentication
 
 				// redirect to the login page

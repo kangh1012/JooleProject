@@ -26,13 +26,13 @@ public class UserServiceImp implements UserService {
     @Override
     public User createNewUser(String username, String password) throws Exception {
         User finduser = repository.findById(username).orElse(null);
-        if (finduser == null){
+        if (finduser != null){
             throw new Exception("Username already exists!");
         }
 
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(password));
         user = repository.save(user);
         return user;
     }
