@@ -84,7 +84,7 @@ public class ProductController {
             return new ResponseEntity<>("{\"message: \" System do not have this product yet. }", HttpStatus.BAD_REQUEST);
         }
         productService.delete(findProduct);
-        return new ResponseEntity<>("{\"message: \" Deleted target project. }", HttpStatus.OK);
+        return new ResponseEntity<>("{\"message: \" Deleted target product. }", HttpStatus.OK);
     }
 
     /**
@@ -136,14 +136,14 @@ public class ProductController {
         ProductToProject find = productToProjectService.findByProductAndProject(findProduct, findProject);
 
         if (find == null){
-            return new ResponseEntity<>(find, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("{\"message: \" System do not have this relationship yet. }", HttpStatus.BAD_REQUEST);
         }
 
         productToProjectService.setPriceQuote(find, price);
         return new ResponseEntity<>(price, HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping("fetchProductProjectRelationship")
+    @RequestMapping("/fetchProductProjectRelationship")
     public ResponseEntity<?> fetchProductProjectRelationship( @RequestParam(name = "productId") Long productId,
                                                               @RequestParam(name = "projectId") Long projectId){
         Product findProduct = productService.findById(productId);
@@ -158,6 +158,10 @@ public class ProductController {
         }
 
         ProductToProject pr = productToProjectService.findByProductAndProject(findProduct, findProject);
+
+        if (pr == null){
+            return new ResponseEntity<>("{\"message: \" System do not have this relationship yet. }", HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity<>(pr, HttpStatus.FOUND);
     }

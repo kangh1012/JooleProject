@@ -39,12 +39,22 @@ public class ProjectController {
     @RequestMapping("/fetchProjectById")
     public ResponseEntity<?> fetchProjectById(@RequestParam(name = "projectId") Long id){
         Project project = projectService.findById(id);
+
+        if (project == null){
+            return new ResponseEntity<>("{\"message: \" System do not have this project yet. }", HttpStatus.BAD_REQUEST);
+        }
+
         return new ResponseEntity<>(project, HttpStatus.FOUND);
     }
 
     @RequestMapping("/deleteProjectById")
     public ResponseEntity<?> deleteProjectById(@RequestParam(name = "projectId") Long id){
         Project project = projectService.findById(id);
+
+        if (project == null){
+            return new ResponseEntity<>("{\"message: \" System do not have this project yet. }", HttpStatus.BAD_REQUEST);
+        }
+
         projectService.delete(project);
         return new ResponseEntity<>("{\"message: \" project deleted.}", HttpStatus.OK);
     }
@@ -56,6 +66,11 @@ public class ProjectController {
                                            @RequestParam(name = "size", required = false)String size,
                                            @RequestParam(name = "type", required = false) String type){
         Project project = projectService.findById(id);
+
+        if (project == null){
+            return new ResponseEntity<>("{\"message: \" System do not have this project yet. }", HttpStatus.BAD_REQUEST);
+        }
+
         project.setProjectName(name);
         project.setProjectAddress(address);
         project.setProjectSize(size);
