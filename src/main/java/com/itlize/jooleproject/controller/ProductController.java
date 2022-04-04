@@ -47,6 +47,12 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
+    @RequestMapping("/fetchAllProduct")
+    public ResponseEntity<?> fetchAllProduct() {
+        List<Product> products = productService.findAll();
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
     @RequestMapping("/fetchProductById")
     public ResponseEntity<?> fetchProductById(@RequestParam(name = "productId") Long id){
         Product findProduct = productService.findById(id);
@@ -60,6 +66,17 @@ public class ProductController {
     @RequestMapping("/fetchProductByType")
     public ResponseEntity<?> fetchProductByType(@RequestParam(name = "productType") String type) {
         List<Product> findProducts = productService.findByType(type);
+
+        if (findProducts == null) {
+            return new ResponseEntity<>(new ArrayList<Product>(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(findProducts, HttpStatus.OK);
+    }
+
+    @RequestMapping("/fetchProductByCategory")
+    public ResponseEntity<?> fetchProductByCategory(@RequestParam(name = "category") String category) {
+        List<Product> findProducts = productService.findByCategory(category);
 
         if (findProducts == null) {
             return new ResponseEntity<>(new ArrayList<Product>(), HttpStatus.OK);

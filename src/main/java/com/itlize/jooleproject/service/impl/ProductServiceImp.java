@@ -43,6 +43,10 @@ public class ProductServiceImp implements ProductService {
         return repository.findByType(type).orElse(null);
     }
 
+    public List<Product> findByCategory(String category) {
+        return repository.findByCategory(category).orElse(null);
+    }
+
     @Override
     public List<Product> findByManufacturer(String manufacturer) {
         return repository.findByManufacturer(manufacturer).orElse(null);

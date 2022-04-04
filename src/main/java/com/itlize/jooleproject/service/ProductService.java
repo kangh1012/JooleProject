@@ -18,6 +18,8 @@ public interface ProductService {
 
     List<Product> findByType(String type);
 
+    List<Product> findByCategory(String category);
+
     List<Product> findByManufacturer(String manufacturer);
 
     List<Product> findByModel(String model);
