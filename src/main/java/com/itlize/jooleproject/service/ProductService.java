@@ -4,6 +4,7 @@ import com.itlize.jooleproject.entity.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface ProductService {
@@ -24,6 +25,8 @@ public interface ProductService {
     List<Product> findByModelYearBetween(Integer modelYear, Integer modelYear2);
 
     List<Product> findByAirFlowBetween(Integer airFlow, Integer airFlow2);
+
+    Map<String, List<String>> findCategoryAndType();
 
     void delete(Product product);
 

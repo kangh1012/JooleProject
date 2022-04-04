@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.Column;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/product")
@@ -52,6 +54,16 @@ public class ProductController {
             return new ResponseEntity<>("{\"message: \" System do not have this product yet. }", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(findProduct, HttpStatus.OK);
+    }
+
+    @RequestMapping("categoryAndType")
+    public ResponseEntity<?> findCategoryAndType() {
+        Map<String, List<String>> map = productService.findCategoryAndType();
+
+        if(map == null) {
+            return new ResponseEntity<>("{\"message: \" No results retrieved.", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     //give default to false so it's not asking for them

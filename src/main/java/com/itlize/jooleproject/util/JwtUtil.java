@@ -3,18 +3,24 @@ package com.itlize.jooleproject.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
 @Service
 public class JwtUtil {
 
     private String SECRET_KEY = "secret";
+
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -50,6 +56,6 @@ public class JwtUtil {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token) && !Objects.equals(redisTemplate.opsForValue().get(token), "logout"));
     }
 }

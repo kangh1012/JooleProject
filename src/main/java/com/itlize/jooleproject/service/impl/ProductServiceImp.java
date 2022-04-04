@@ -7,7 +7,10 @@ import com.itlize.jooleproject.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductServiceImp implements ProductService {
@@ -58,6 +61,29 @@ public class ProductServiceImp implements ProductService {
     @Override
     public List<Product> findByAirFlowBetween(Integer airFlow, Integer airFlow2) {
         return repository.findByAirFlowBetween(airFlow, airFlow2).orElse(null);
+    }
+
+    @Override
+    public Map<String, List<String>> findCategoryAndType() {
+        List<List<String>> result = repository.findCategoryAndType().orElse(null);
+        if(result != null) {
+            Map<String, List<String>> map = new HashMap<>();
+            for(List<String> list : result) {
+                String key = list.get(0);
+                String value = list.get(1);
+                if(!map.containsKey(key)) {
+                    List<String> l = new ArrayList<>();
+                    l.add(value);
+                    map.put(key, l);
+                } else {
+                    map.get(key).add(value);
+                }
+            }
+
+            return map;
+        }
+
+        return null;
     }
 
     @Override

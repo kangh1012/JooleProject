@@ -18,6 +18,8 @@ public class Product {
     @Column(name = "product_id")
     private Long productId;
 
+    @Column(name = "category")
+    private String category;
 
     @Column(name = "product_type")
     private String type;
@@ -122,10 +124,19 @@ public class Product {
         this.airFlow = airFlow;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
                 "productId=" + productId +
+                ", category='" + category + '\'' +
                 ", type='" + type + '\'' +
                 ", manufacturer='" + manufacturer + '\'' +
                 ", model='" + model + '\'' +

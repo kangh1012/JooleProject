@@ -6,6 +6,7 @@ import com.itlize.jooleproject.service.UserService;
 import com.itlize.jooleproject.util.JsonResult;
 import com.itlize.jooleproject.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,8 +15,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/user")
@@ -28,6 +33,8 @@ public class UserController {
     private JwtUtil jwtTokenUtil;
     @Autowired
     private MyUserDetailsService userDetailsService;
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
     @RequestMapping("/register")
     public ResponseEntity<?> register(@RequestParam("username") String username,
@@ -47,11 +54,12 @@ public class UserController {
     }
 
     @RequestMapping("/login")
-    public ResponseEntity<?> login (@RequestBody User user){
+    public ResponseEntity<?> login (@RequestParam("username") String username,
+                                    @RequestParam("password") String password){
 
         try {
             myauthenticaitonManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
+                    new UsernamePasswordAuthenticationToken(username, password)
             );
         }
         catch (BadCredentialsException e) {
@@ -59,11 +67,37 @@ public class UserController {
         }
 
         final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(user.getUsername());
+                .loadUserByUsername(username);
 
         final String jwt = jwtTokenUtil.generateToken(userDetails);
+        Map<String, String> res = new HashMap<>();
+        res.put("token", jwt);
 
-        return  new ResponseEntity<>(jwt, HttpStatus.OK);
+        return  new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @RequestMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        final String authHeader = request.getHeader("Authorization");
+        Map<String, String> res = new HashMap<>();
+
+        if(authHeader != null && authHeader.startsWith("Bearer")) {
+            String token = authHeader.substring(7);
+            if(!jwtTokenUtil.validateToken(token, userDetailsService.loadUserByUsername(jwtTokenUtil.extractUsername(token)))) {
+                res.put("response", "Invalid token");
+                return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
+            }
+
+            Long expiration = jwtTokenUtil.extractExpiration(token).getTime();
+            redisTemplate.opsForValue()
+                    .set(token, "logout", expiration, TimeUnit.MILLISECONDS);
+
+            res.put("response", "Logout successful");
+
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        }
+        res.put("error", "No such header");
+
+        return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
+    }
 }
