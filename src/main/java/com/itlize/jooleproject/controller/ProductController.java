@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.Column;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +55,17 @@ public class ProductController {
             return new ResponseEntity<>("{\"message: \" System do not have this product yet. }", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(findProduct, HttpStatus.OK);
+    }
+
+    @RequestMapping("/fetchProductByType")
+    public ResponseEntity<?> fetchProductByType(@RequestParam(name = "productType") String type) {
+        List<Product> findProducts = productService.findByType(type);
+
+        if (findProducts == null) {
+            return new ResponseEntity<>(new ArrayList<Product>(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(findProducts, HttpStatus.OK);
     }
 
     @RequestMapping("categoryAndType")
