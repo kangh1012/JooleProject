@@ -13,10 +13,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Column;
 import java.time.LocalDateTime;
@@ -40,20 +37,20 @@ public class ProductController {
      * Product CRUD
      * **/
 
-    @RequestMapping("/createProduct")
+    @PostMapping("/createProduct")
     //@PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> createProduct(){
         Product product = productService.createNewProduct();
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
-    @RequestMapping("/fetchAllProduct")
+    @GetMapping("/fetchAllProduct")
     public ResponseEntity<?> fetchAllProduct() {
         List<Product> products = productService.findAll();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    @RequestMapping("/fetchProductById")
+    @GetMapping("/fetchProductById")
     public ResponseEntity<?> fetchProductById(@RequestParam(name = "productId") Long id){
         Product findProduct = productService.findById(id);
 
@@ -63,7 +60,7 @@ public class ProductController {
         return new ResponseEntity<>(findProduct, HttpStatus.OK);
     }
 
-    @RequestMapping("/fetchProductByType")
+    @GetMapping("/fetchProductByType")
     public ResponseEntity<?> fetchProductByType(@RequestParam(name = "productType") String type) {
         List<Product> findProducts = productService.findByType(type);
 
@@ -74,7 +71,7 @@ public class ProductController {
         return new ResponseEntity<>(findProducts, HttpStatus.OK);
     }
 
-    @RequestMapping("/fetchProductByCategory")
+    @GetMapping("/fetchProductByCategory")
     public ResponseEntity<?> fetchProductByCategory(@RequestParam(name = "category") String category) {
         List<Product> findProducts = productService.findByCategory(category);
 
@@ -85,7 +82,7 @@ public class ProductController {
         return new ResponseEntity<>(findProducts, HttpStatus.OK);
     }
 
-    @RequestMapping("categoryAndType")
+    @GetMapping("categoryAndType")
     public ResponseEntity<?> findCategoryAndType() {
         Map<String, List<String>> map = productService.findCategoryAndType();
 
@@ -96,35 +93,24 @@ public class ProductController {
     }
 
     //give default to false so it's not asking for them
-    @RequestMapping("/updateProduct")
-    public ResponseEntity<?> updateProduct(@RequestParam(name = "productId") Long id,
-                                           @RequestParam(name = "productType") String type,
-                                           @RequestParam(name = "manufacturer") String manufacturer,
-                                           @RequestParam(name = "series") String series,
-                                           @RequestParam(name = "model") String model,
-                                           @RequestParam(name = "modelYear")Integer modelYear,
-                                           @RequestParam(name = "airflow")Integer airFlow,
-                                           @RequestParam(name = "maxPower") Double maxPower,
-                                           @RequestParam(name = "sound") Integer sound,
-                                           @RequestParam(name = "fanSweepDiameter") Integer fanSweepDiameter,
-                                           @RequestParam(name = "category")String category,
-                                           @RequestParam(name = "imagePath")String imagePath){
-        Product findProduct = productService.findById(id);
+    @PutMapping("/updateProduct")
+    public ResponseEntity<?> updateProduct(@RequestBody Product newProduct){
+        Product findProduct = productService.findById(newProduct.getProductId());
 
         if (findProduct == null){
             return new ResponseEntity<>("{\"message: \" System do not have this product yet. }", HttpStatus.BAD_REQUEST);
         }
-        findProduct.setType(type);
-        findProduct.setManufacturer(manufacturer);
-        findProduct.setSeries(series);
-        findProduct.setModel(model);
-        findProduct.setModelYear(modelYear);
-        findProduct.setAirFlow(airFlow);
-        findProduct.setMaxPower(maxPower);
-        findProduct.setSound(sound);
-        findProduct.setFanSweepDiameter(fanSweepDiameter);
-        findProduct.setCategory(category);
-        findProduct.setImagePath(imagePath);
+        findProduct.setType(newProduct.getType());
+        findProduct.setManufacturer(newProduct.getManufacturer());
+        findProduct.setSeries(newProduct.getSeries());
+        findProduct.setModel(newProduct.getModel());
+        findProduct.setModelYear(newProduct.getModelYear());
+        findProduct.setAirFlow(newProduct.getAirFlow());
+        findProduct.setMaxPower(newProduct.getMaxPower());
+        findProduct.setSound(newProduct.getSound());
+        findProduct.setFanSweepDiameter(newProduct.getFanSweepDiameter());
+        findProduct.setCategory(newProduct.getCategory());
+        findProduct.setImagePath(newProduct.getImagePath());
         Product result = productService.save(findProduct);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -144,7 +130,7 @@ public class ProductController {
      * ProductToProject CRUD
      * **/
 
-    @RequestMapping("/addProductToProject")
+    @PostMapping("/addProductToProject")
     public ResponseEntity<?> addProductToProject(
             @RequestParam(name = "productId") Long productId,
             @RequestParam(name = "projectId") Long projectId){
@@ -171,7 +157,7 @@ public class ProductController {
         return new ResponseEntity<>(pr, HttpStatus.CREATED);
     }
 
-    @RequestMapping("/setPriceToRelationship")
+    @PutMapping("/setPriceToRelationship")
     public ResponseEntity<?> setPriceToRelationship(@RequestParam(name = "productId") Long productId,
                                                     @RequestParam(name = "projectId") Long projectId,
                                                     @RequestParam(name= "price") Double price){
@@ -196,7 +182,7 @@ public class ProductController {
         return new ResponseEntity<>(price, HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping("/fetchProductProjectRelationship")
+    @GetMapping("/fetchProductProjectRelationship")
     public ResponseEntity<?> fetchProductProjectRelationship( @RequestParam(name = "productId") Long productId,
                                                               @RequestParam(name = "projectId") Long projectId){
         Product findProduct = productService.findById(productId);
@@ -219,7 +205,7 @@ public class ProductController {
         return new ResponseEntity<>(pr, HttpStatus.FOUND);
     }
 
-    @RequestMapping("/deleteRelationshipByIds")
+    @GetMapping("/deleteRelationshipByIds")
     public ResponseEntity<?> deleteRelationship(@RequestParam(name = "productId") Long productId,
                                                 @RequestParam(name = "projectId") Long projectId){
         Product findProduct = productService.findById(productId);

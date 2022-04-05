@@ -36,12 +36,11 @@ public class UserController {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    @RequestMapping("/register")
-    public ResponseEntity<?> register(@RequestParam("username") String username,
-                                      @RequestParam("password") String password){
-        User user = null;
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody Map<String, String> map){
+        User user;
         try{
-            user = userService.createNewUser(username, password);
+            user = userService.createNewUser(map.get("username"), map.get("password"));
         }catch (Exception e){
             return new ResponseEntity<>("Username is taken.", HttpStatus.EXPECTATION_FAILED);
         }
@@ -53,7 +52,7 @@ public class UserController {
         return "Hello World";
     }
 
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity<?> login (@RequestParam("username") String username,
                                     @RequestParam("password") String password){
 
@@ -88,7 +87,7 @@ public class UserController {
                 return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
             }
 
-            Long expiration = jwtTokenUtil.extractExpiration(token).getTime();
+            long expiration = jwtTokenUtil.extractExpiration(token).getTime();
             redisTemplate.opsForValue()
                     .set(token, "logout", expiration, TimeUnit.MILLISECONDS);
 
