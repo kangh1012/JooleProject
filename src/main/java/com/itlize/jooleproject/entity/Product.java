@@ -40,7 +40,7 @@ public class Product {
     private Integer airFlow;
 
     @Column(name = "max_power")
-    private Integer maxPower;
+    private Double maxPower;
 
     @Column(name = "sound")
     private Integer sound;
@@ -147,11 +147,11 @@ public class Product {
         this.series = series;
     }
 
-    public Integer getMaxPower() {
+    public Double getMaxPower() {
         return maxPower;
     }
 
-    public void setMaxPower(Integer maxPower) {
+    public void setMaxPower(Double maxPower) {
         this.maxPower = maxPower;
     }
 

@@ -104,7 +104,7 @@ public class ProductController {
                                            @RequestParam(name = "model") String model,
                                            @RequestParam(name = "modelYear")Integer modelYear,
                                            @RequestParam(name = "airflow")Integer airFlow,
-                                           @RequestParam(name = "maxPower") Integer maxPower,
+                                           @RequestParam(name = "maxPower") Double maxPower,
                                            @RequestParam(name = "sound") Integer sound,
                                            @RequestParam(name = "fanSweepDiameter") Integer fanSweepDiameter,
                                            @RequestParam(name = "category")String category,
