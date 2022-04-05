@@ -27,6 +27,9 @@ public class Product {
     @Column(name = "manufacturer")
     private String manufacturer;
 
+    @Column(name = "series")
+    private String series;
+
     @Column(name = "model")
     private String model;
 
@@ -35,6 +38,15 @@ public class Product {
 
     @Column(name = "air_flow")
     private Integer airFlow;
+
+    @Column(name = "max_power")
+    private Integer maxPower;
+
+    @Column(name = "sound")
+    private Integer sound;
+
+    @Column(name = "fan_sweep_diameter")
+    private Integer fanSweepDiameter;
 
     @CreatedDate
     @Column(name = "time_created")
@@ -127,6 +139,38 @@ public class Product {
         this.airFlow = airFlow;
     }
 
+    public String getSeries() {
+        return series;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
+    }
+
+    public Integer getMaxPower() {
+        return maxPower;
+    }
+
+    public void setMaxPower(Integer maxPower) {
+        this.maxPower = maxPower;
+    }
+
+    public Integer getSound() {
+        return sound;
+    }
+
+    public void setSound(Integer sound) {
+        this.sound = sound;
+    }
+
+    public Integer getFanSweepDiameter() {
+        return fanSweepDiameter;
+    }
+
+    public void setFanSweepDiameter(Integer fanSweepDiameter) {
+        this.fanSweepDiameter = fanSweepDiameter;
+    }
+
     public String getImagePath() {
         return imagePath;
     }
@@ -150,12 +194,16 @@ public class Product {
                 ", category='" + category + '\'' +
                 ", type='" + type + '\'' +
                 ", manufacturer='" + manufacturer + '\'' +
+                ", series='" + series + '\'' +
                 ", model='" + model + '\'' +
                 ", modelYear=" + modelYear +
                 ", airFlow=" + airFlow +
+                ", maxPower=" + maxPower +
+                ", sound=" + sound +
+                ", fanSweepDiameter=" + fanSweepDiameter +
                 ", timeCreated=" + timeCreated +
                 ", lastModified=" + lastModified +
-                ", imagePath=" + imagePath +
+                ", imagePath='" + imagePath + '\'' +
                 ", resources=" + resources +
                 '}';
     }

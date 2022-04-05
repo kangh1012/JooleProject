@@ -100,9 +100,13 @@ public class ProductController {
     public ResponseEntity<?> updateProduct(@RequestParam(name = "productId") Long id,
                                            @RequestParam(name = "productType") String type,
                                            @RequestParam(name = "manufacturer") String manufacturer,
+                                           @RequestParam(name = "series") String series,
                                            @RequestParam(name = "model") String model,
                                            @RequestParam(name = "modelYear")Integer modelYear,
                                            @RequestParam(name = "airflow")Integer airFlow,
+                                           @RequestParam(name = "maxPower") Integer maxPower,
+                                           @RequestParam(name = "sound") Integer sound,
+                                           @RequestParam(name = "fanSweepDiameter") Integer fanSweepDiameter,
                                            @RequestParam(name = "category")String category,
                                            @RequestParam(name = "imagePath")String imagePath){
         Product findProduct = productService.findById(id);
@@ -112,9 +116,13 @@ public class ProductController {
         }
         findProduct.setType(type);
         findProduct.setManufacturer(manufacturer);
+        findProduct.setSeries(series);
         findProduct.setModel(model);
         findProduct.setModelYear(modelYear);
         findProduct.setAirFlow(airFlow);
+        findProduct.setMaxPower(maxPower);
+        findProduct.setSound(sound);
+        findProduct.setFanSweepDiameter(fanSweepDiameter);
         findProduct.setCategory(category);
         findProduct.setImagePath(imagePath);
         Product result = productService.save(findProduct);
