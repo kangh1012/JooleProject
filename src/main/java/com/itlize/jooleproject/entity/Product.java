@@ -44,6 +44,9 @@ public class Product {
     @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
+    @Column(name = "image_path")
+    private String imagePath;
+
     @OneToMany(targetEntity = ProductToProject.class, mappedBy = "product", cascade =
             CascadeType.DETACH, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -124,6 +127,14 @@ public class Product {
         this.airFlow = airFlow;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -144,6 +155,7 @@ public class Product {
                 ", airFlow=" + airFlow +
                 ", timeCreated=" + timeCreated +
                 ", lastModified=" + lastModified +
+                ", imagePath=" + imagePath +
                 ", resources=" + resources +
                 '}';
     }

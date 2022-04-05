@@ -102,7 +102,9 @@ public class ProductController {
                                            @RequestParam(name = "manufacturer") String manufacturer,
                                            @RequestParam(name = "model") String model,
                                            @RequestParam(name = "modelYear")Integer modelYear,
-                                           @RequestParam(name = "airflow")Integer airFlow){
+                                           @RequestParam(name = "airflow")Integer airFlow,
+                                           @RequestParam(name = "category")String category,
+                                           @RequestParam(name = "imagePath")String imagePath){
         Product findProduct = productService.findById(id);
 
         if (findProduct == null){
@@ -113,6 +115,8 @@ public class ProductController {
         findProduct.setModel(model);
         findProduct.setModelYear(modelYear);
         findProduct.setAirFlow(airFlow);
+        findProduct.setCategory(category);
+        findProduct.setImagePath(imagePath);
         Product result = productService.save(findProduct);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
